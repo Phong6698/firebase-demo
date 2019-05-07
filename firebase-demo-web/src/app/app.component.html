@@ -1,4 +1,15 @@
 <!--The content below is only a placeholder and can be replaced.-->
+<div *ngIf="angularFireAuth.user | async as user; else showLogin">
+  <h1>Hello {{ user.displayName }}!</h1>
+  <button (click)="logout()">Logout</button>
+</div>
+
+<ng-template #showLogin>
+  <p>Please login.</p>
+  <button (click)="loginGoogle()">Login with Google</button>
+  <button (click)="loginGithub()">Login with Github</button>
+</ng-template>
+
 <div style="text-align:center">
   <h1>
     Welcome to {{ title }}!
