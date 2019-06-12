@@ -8,7 +8,7 @@ jobs:
   include:
     - stage: Dev
       script:
-        - npm run prebuild
+        - npm run prebuild --prefix firebase-demo-web
         - npm run build.dev --prefix firebase-demo-web
       deploy:
         - provider: firebase
@@ -18,7 +18,7 @@ jobs:
     - stage: Prod
       if: tag IS present
       script:
-        - npm run prebuild
+        - npm run prebuild --prefix firebase-demo-web
         - npm run build.prod --prefix firebase-demo-web
       deploy:
         - provider: firebase
