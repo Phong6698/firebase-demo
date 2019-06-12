@@ -8,6 +8,7 @@ jobs:
   include:
     - stage: Dev
       script:
+        - npm run prebuild
         - npm run build.dev --prefix firebase-demo-web
       deploy:
         - provider: firebase
@@ -15,9 +16,9 @@ jobs:
           token:
             secure: $FIREBASE_TOKEN
     - stage: Prod
-      on:
-        tags: true
+      if: tag IS present
       script:
+        - npm run prebuild
         - npm run build.prod --prefix firebase-demo-web
       deploy:
         - provider: firebase

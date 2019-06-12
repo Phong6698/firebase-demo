@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,8 @@ import { auth } from 'firebase/app';
 })
 export class AppComponent {
   title = 'firebase-demo-web';
+  isProd = environment.production;
+  version = environment.version;
 
   constructor(public angularFireAuth: AngularFireAuth) {}
 
