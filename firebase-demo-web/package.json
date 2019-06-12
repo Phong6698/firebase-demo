@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prebuild": "node ./node_modules/ng-appversion/index.js",
+    "prebuild": "node ./node_modules/ng-appversion/index.js --git ../../",
     "build.prod": "ng build --prod",
     "build.dev": "ng build"
   },
