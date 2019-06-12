@@ -30,5 +30,6 @@ jobs:
             secure: $FIREBASE_TOKEN
           project: "fir-87d91"
           on:
+            tags: true
             all_branches: true
             condition: $TRAVIS_BRANCH =~ -release$
