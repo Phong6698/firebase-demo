@@ -6,25 +6,19 @@ install:
   - npm ci --prefix functions
 jobs:
   include:
-    - stage: Build Dev
+    - stage: Dev
       script:
         - npm run build.dev --prefix firebase-demo-web
-    - stage: Deploy Dev
-      script: skip
       deploy:
         - provider: firebase
           skip_cleanup: true
           token:
             secure: $FIREBASE_TOKEN
-    - stage: Build Prod
+    - stage: Prod
       on:
         tags: true
       script:
         - npm run build.prod --prefix firebase-demo-web
-    - stage: Deploy Prod
-      script: skip
-      on:
-        tags: true
       deploy:
         - provider: firebase
           skip_cleanup: true
