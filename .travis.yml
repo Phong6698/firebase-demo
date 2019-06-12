@@ -2,13 +2,13 @@ language: node_js
 node_js:
   - '10'
 install:
-  - npm ci --prefix web
+  - npm ci --prefix firebase-demo-web
   - npm ci --prefix functions
 jobs:
   include:
     - stage: Build Dev
       script:
-        - npm run build.dev --prefix web
+        - npm run build.dev --prefix firebase-demo-web
     - stage: Deploy Dev
       deploy:
         - provider: firebase
@@ -19,7 +19,7 @@ jobs:
       on:
         tags: true
       script:
-        - npm run build.prod --prefix web
+        - npm run build.prod --prefix firebase-demo-web
     - stage: Deploy Prod
       on:
         tags: true
