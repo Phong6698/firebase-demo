@@ -15,9 +15,6 @@ jobs:
           skip_cleanup: true
           token:
             secure: $FIREBASE_TOKEN
-          on:
-            all_branches: true
-            condition: $TRAVIS_BRANCH =~ -release|master$
     - stage: Prod
       if: tag IS present
       script:
@@ -31,5 +28,3 @@ jobs:
           project: "fir-87d91"
           on:
             tags: true
-            all_branches: true
-            condition: $TRAVIS_BRANCH =~ -release$
