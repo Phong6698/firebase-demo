@@ -27,4 +27,4 @@ jobs:
             secure: $FIREBASE_TOKEN
           project: "fir-87d91"
           on:
-            tags: true
+            branch: release
