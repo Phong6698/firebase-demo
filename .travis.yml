@@ -4,30 +4,28 @@ node_js:
 install:
   - npm ci --prefix firebase-demo-web
   - npm ci --prefix functions
+script:
+  - npm run prebuild --prefix firebase-demo-web
 jobs:
   include:
     - stage: Dev
-      script:
-        - npm run prebuild --prefix firebase-demo-web
+      if: branch = "master"
         - npm run build.dev --prefix firebase-demo-web
       deploy:
         - provider: firebase
           skip_cleanup: true
           token:
             secure: $FIREBASE_TOKEN
-          on:	
-            all_branches: true	
-            condition: ($TRAVIS_BRANCH == master) OR ($TRAVIS_TAGS = true)
+          message: $TRAVIS_TAG $TRAVIS_COMMIT 
     - stage: Prod
       if: tag IS present
-      script:
-        - npm run prebuild --prefix firebase-demo-web
         - npm run build.prod --prefix firebase-demo-web
       deploy:
         - provider: firebase
+          on:
+            tags: true
           skip_cleanup: true
           token:
             secure: $FIREBASE_TOKEN
           project: "fir-87d91"
-          on:
-            tags: true
+          message: $TRAVIS_TAG $TRAVIS_COMMIT 
