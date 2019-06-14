@@ -10,6 +10,7 @@ jobs:
   include:
     - stage: Dev
       if: branch = "master"
+      script:
         - npm run build.dev --prefix firebase-demo-web
       deploy:
         - provider: firebase
@@ -19,6 +20,7 @@ jobs:
           message: $TRAVIS_TAG $TRAVIS_COMMIT 
     - stage: Prod
       if: tag IS present
+      script:
         - npm run build.prod --prefix firebase-demo-web
       deploy:
         - provider: firebase
