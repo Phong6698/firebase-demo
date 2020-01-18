@@ -26,7 +26,7 @@ jobs:
         npm run lint --prefix firebase-demo-web
         npm run lint --prefix functions
         npm run prebuild --prefix firebase-demo-web
-        npm run build.prod --prefix firebase-demo-web
+        npm run build.dev --prefix firebase-demo-web
         
     - name: Install Firebase Tools
       if: success()
