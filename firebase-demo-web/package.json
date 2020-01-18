@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prebuild": "node ./node_modules/@saithodev/ts-appversion/index.js --git ../",
+    "prebuild": "node ./node_modules/@saithodev/ts-appversion/index.js --git ../ --root ../../../",
     "build.prod": "ng build --prod",
     "build.dev": "ng build"
   },
