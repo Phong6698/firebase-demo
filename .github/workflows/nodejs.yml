@@ -17,16 +17,16 @@ jobs:
         
     - name: Install Dependencies
       run: |
-        npm ci --prefix web
+        npm ci --prefix firebase-demo-web
         npm ci --prefix functions
         
     - name: Build
       if: success()
       run: |
-        npm run lint --prefix web
+        npm run lint --prefix firebase-demo-web
         npm run lint --prefix functions
-        npm run prebuild --prefix web
-        npm run build.prod --prefix web
+        npm run prebuild --prefix firebase-demo-web
+        npm run build.prod --prefix firebase-demo-web
         
     - name: Install Firebase Tools
       if: success()
