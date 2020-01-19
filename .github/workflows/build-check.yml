@@ -1,6 +1,9 @@
-name: Check Run
+name: Build Check
 
-on: check_run
+on:
+  push:
+    branches-ignore:
+      - master
 
 jobs:
   build:
