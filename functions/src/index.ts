@@ -5,6 +5,11 @@ import nodeFetch from 'node-fetch';
 
 const corsHandler = cors({origin: true});
 
+const loadHtml = async (url: string) => {
+    const result = await nodeFetch(url);
+    return await result.text();
+};
+
 // Start writing Firebase Functions
 // https://firebase.google.com/docs/functions/typescript
 export const helloWorld = functions.https.onRequest((request, response) => {
@@ -22,8 +27,3 @@ export const profile = functions.region('europe-west1').https.onRequest(async (r
         response.send(content);
     });
 });
-
-const loadHtml = async (url: string) => {
-    const result = await nodeFetch(url);
-    return await result.text();
-};
