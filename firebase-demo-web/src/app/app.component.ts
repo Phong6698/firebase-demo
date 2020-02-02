@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   messages$: Observable<{}>;
 
-  error$ = new Subject();
+  debug$ = new Subject();
 
   user$: Observable<any>;
 
@@ -82,10 +82,11 @@ export class AppComponent implements OnInit {
     this.angularFireMessaging.requestPermission.toPromise()
       .then(() => {
         console.log('Permission granted!');
+        this.debug$.next('Permission granted!');
       })
       .catch(error => {
         console.error(error);
-        this.error$.next(error);
+        this.debug$.next(error);
       })
   }
 
