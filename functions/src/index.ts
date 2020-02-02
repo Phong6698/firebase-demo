@@ -1,7 +1,10 @@
 import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
 import * as cheerio from 'cheerio';
 import * as cors from 'cors';
 import nodeFetch from 'node-fetch';
+
+admin.initializeApp();
 
 const corsHandler = cors({origin: true});
 
@@ -30,7 +33,22 @@ export const profile = functions.region('europe-west1').https.onRequest(async (r
 
 export const schedule = functions.pubsub
   .schedule('30 * * * *').timeZone('Europe/Zurich').onRun(context => {
-      console.log('schedule function every 30 minutes');
-      console.log('time', new Date());
-      return null;
+    console.log('schedule function every 30 minutes');
+    console.log('time', new Date());
+    return null;
+  });
+
+export const messaging = functions.region('europe-west1').firestore
+  .document('Messages/{messageID}').onCreate(async (snapshot, context) => {
+    const data: any = snapshot.data();
+    console.log('data', data);
+
+    const payload: any = data.payload;
+    const uid = data.uid;
+    const userSnap = await admin.firestore().collection('Users').doc(uid).get();
+    const user: any = userSnap.data();
+    console.log('user', user);
+    const fcmTokens = Object.keys(user.fcmTokens);
+    console.log('fcmTokens', fcmTokens);
+    return admin.messaging().sendToDevice(fcmTokens, payload);
   });
