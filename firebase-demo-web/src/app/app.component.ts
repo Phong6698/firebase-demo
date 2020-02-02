@@ -3,7 +3,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase/app';
 import {environment} from '../environments/environment';
 import {AngularFireMessaging} from '@angular/fire/messaging';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 
@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
   version = environment.version;
 
   messages$: Observable<{}>;
+
+  error$ = new Subject();
 
   user$: Observable<any>;
 
@@ -83,6 +85,7 @@ export class AppComponent implements OnInit {
       })
       .catch(error => {
         console.error(error);
+        this.error$.next(error);
       })
   }
 
