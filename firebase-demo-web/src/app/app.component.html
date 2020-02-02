@@ -2,6 +2,14 @@
 <div *ngIf="angularFireAuth.user | async as user; else showLogin">
   <h1>Hello {{ user.displayName }}!</h1>
   <button (click)="logout()">Logout</button>
+  <button (click)="requestPermission()">Activate Notification</button>
+  <button (click)="sendExampleNotification()">Send example Notification</button>
+
+  <h2>User Data</h2>
+  <pre>{{user$ | async | json}}</pre>
+
+  <h2>Messages</h2>
+  <pre>{{messages$ | async | json}}</pre>
 </div>
 
 <ng-template #showLogin>
