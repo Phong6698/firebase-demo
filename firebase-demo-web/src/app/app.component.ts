@@ -48,6 +48,7 @@ export class AppComponent implements OnInit {
     this.angularFireMessaging.tokenChanges.pipe(
       switchMap(token => {
         console.log(token);
+        this.debug$.next(token);
         return this.user$.pipe(map(user => {
           return {user, fcmToken: token};
         }));
