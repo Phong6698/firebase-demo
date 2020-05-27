@@ -27,4 +27,4 @@ jobs:
 
       - name: Run npm-check
           run: |
-            npm-check web --skip-unused
+            npm-check firebase-demo-web --skip-unused
