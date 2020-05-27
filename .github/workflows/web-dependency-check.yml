@@ -2,7 +2,7 @@ name: Web Dependency Check
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "6 * * * *"
 
 jobs:
   build:
