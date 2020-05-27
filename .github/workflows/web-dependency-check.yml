@@ -19,7 +19,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm ci --prefix web
+          npm ci --prefix firebase-demo-web
 
       - name: Install npm-check
         run: |
