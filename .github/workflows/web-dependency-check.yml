@@ -22,9 +22,9 @@ jobs:
           npm ci --prefix web
 
       - name: Install npm-check
-          run: |
-            npm i -g npm-check
+        run: |
+          npm i -g npm-check
 
       - name: Run npm-check
-          run: |
-            npm-check firebase-demo-web --skip-unused
+        run: |
+          npm-check firebase-demo-web --skip-unused
