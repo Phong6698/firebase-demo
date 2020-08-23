@@ -32,8 +32,8 @@ export const profile = functions.region('europe-west1').https.onRequest(async (r
 });
 
 export const schedule = functions.pubsub
-  .schedule('30 * * * *').timeZone('Europe/Zurich').onRun(context => {
-    console.log('schedule function every 30 minutes');
+  .schedule('0 12 * * 1').timeZone('Europe/Zurich').onRun(context => {
+    console.log('schedule function every 12:00 Monday');
     console.log('time', new Date());
     return null;
   });
