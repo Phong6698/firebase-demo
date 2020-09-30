@@ -7,16 +7,11 @@ on:
 
 jobs:
   build:
-    name: Build & Deploy
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v1
-
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '10'
+        uses: actions/checkout@v2
 
       - name: Install Dependencies
         run: |
@@ -26,17 +21,69 @@ jobs:
       - name: Build
         if: success()
         run: |
-          npm run lint --prefix firebase-demo-web
-          npm run lint --prefix functions
           npm run prebuild --prefix firebase-demo-web
           npm run build.dev --prefix firebase-demo-web
+          npm run build --prefix functions
 
-      - name: Install Firebase Tools
+      - name: Archive Artifact
+        if: success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: firebase-demo-web/dist
+          path: firebase-demo-web/dist
+
+  lint:
+    name: Lint
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          npm ci --prefix firebase-demo-web
+          npm ci --prefix functions
+
+      - name: Lint
         if: success()
         run: |
-          npm install -g firebase-tools
+          npm run lint --prefix firebase-demo-web
+          npm run lint --prefix functions
 
-      - name: Firebase Deploy
+  test:
+    name: Test
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          npm ci --prefix firebase-demo-web
+
+      - name: Test
         if: success()
         run: |
-          firebase deploy -P default --token ${{ secrets.FIREBASE_TOKEN }} -m "$GITHUB_SHA"
+          npm run test --prefix firebase-demo-web
+
+  deploy:
+    name: Deploy
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: firebase-demo-web/dist
+          path: firebase-demo-web/dist
+
+      - name: Deploy to Firebase
+        if: success()
+        uses: w9jds/firebase-action@master
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
