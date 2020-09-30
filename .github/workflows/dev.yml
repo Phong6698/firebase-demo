@@ -29,7 +29,7 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: firebase-demo-web/dist
+          name: dist
           path: firebase-demo-web/dist
 
   lint:
@@ -79,7 +79,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
-          name: firebase-demo-web/dist
+          name: dist
           path: firebase-demo-web/dist
 
       - name: Deploy to Firebase
