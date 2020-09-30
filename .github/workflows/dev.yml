@@ -85,5 +85,7 @@ jobs:
       - name: Deploy to Firebase
         if: success()
         uses: w9jds/firebase-action@master
+        with:
+          args: deploy -P default
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
