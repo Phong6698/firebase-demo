@@ -81,6 +81,9 @@ jobs:
         with:
           name: dist
           path: firebase-demo-web/dist
+      
+      - name: Install Dependencies
+        run: npm ci --prefix functions
 
       - name: Deploy to Firebase
         if: success()
