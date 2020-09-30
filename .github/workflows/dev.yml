@@ -63,10 +63,10 @@ jobs:
         run: |
           npm ci --prefix firebase-demo-web
 
-      - name: Test
-        if: success()
-        run: |
-          npm run test --prefix firebase-demo-web
+#       - name: Test
+#         if: success()
+#         run: |
+#           npm run test --prefix firebase-demo-web
 
   deploy:
     name: Deploy
